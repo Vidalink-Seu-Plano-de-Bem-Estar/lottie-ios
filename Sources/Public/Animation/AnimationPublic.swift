@@ -97,7 +97,8 @@ extension Animation {
 
     do {
       /// Decode the animation.
-      let json = try Data(contentsOf: URL(fileURLWithPath: filepath))
+      guard let url = URL(string: filepath) else { return nil }
+      let json = try Data(contentsOf: url)
       let animation = try JSONDecoder().decode(Animation.self, from: json)
       animationCache?.setAnimation(animation, forKey: filepath)
       return animation
